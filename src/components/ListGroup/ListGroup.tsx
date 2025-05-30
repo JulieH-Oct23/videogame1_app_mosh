@@ -1,16 +1,11 @@
 import { useState } from "react";
 import "./ListGroup.css";
 import styled from "styled-components";
-import { IoHeart } from "react-icons/io5";
 
 const List = styled.ul`
   list-style: none;
   padding: 0;
 `;
-
-// const Love = () => {
-//   return <IoHeart color="salmon" size="70" />;
-// };
 
 interface ListItemProps {
   active: boolean;
@@ -53,5 +48,3 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
 }
 
 export default ListGroup;
-
-// export default Love;

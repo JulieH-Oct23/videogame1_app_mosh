@@ -1,20 +1,46 @@
-import ListGroup from "./components/ListGroup";
-// import "./App.css";
-import { BsCalendar2Fill } from "react-icons/bs";
-import { IoHeart } from "react-icons/io5";
+import { useState } from "react";
+import ExpenseList from "./expense-tracker/ExpenseList";
+import ExpenseFilter from "./components/ExpenseFilter";
+import ExpenseForm from "./components/ExpenseForm";
+
+export const categories = ["Groceries", "Utilites", "Entertainment"];
 
 function App() {
-  let items = ["Anne", "Erin", "Kate", "Kelley", "Julie"];
-  const handleSelectItem = (item: string) => {
-    console.log(item);
-  };
+  const [selectedCategory, setSelectedCategory] = useState(" ");
+  const [expenses, setExpenses] = useState([
+    { Id: 1, description: "Dozen Eggs", amount: 12, category: "Groceries" },
+    { Id: 2, description: "Raisin Bread", amount: 5, category: "Groceries" },
+    {
+      Id: 3,
+      description: "I Can't Believe Its Not Butter Light",
+      amount: 4,
+      category: "Groceries",
+    },
+    {
+      Id: 4,
+      description: "Crystal Light Raspberry Lemonade",
+      amount: 2,
+      category: "Groceries",
+    },
+  ]);
+
+  const visibleExpenses = selectedCategory
+    ? expenses.filter((e) => e.category === selectedCategory)
+    : expenses;
 
   return (
     <div>
-      <ListGroup
-        items={items}
-        heading="Golden Girls"
-        onSelectItem={handleSelectItem}
+      <div className="mb-5">
+        <ExpenseForm />
+      </div>
+      <div className="mb-3">
+        <ExpenseFilter
+          onSelectCategory={(category) => setSelectedCategory(category)}
+        />
+      </div>
+      <ExpenseList
+        expenses={visibleExpenses}
+        onDelete={(Id) => setExpenses(expenses.filter((e) => e.Id !== Id))}
       />
     </div>
   );
